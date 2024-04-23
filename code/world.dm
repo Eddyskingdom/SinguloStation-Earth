@@ -63,7 +63,7 @@ var/world_is_open = TRUE
 
 #define RECOMMENDED_VERSION 512
 /world/New()
-
+	TgsNew()
 	config.post_load()
 
 	if (config && config.server_name != null && config.server_suffix && world.port > 0)
@@ -87,6 +87,7 @@ var/world_is_open = TRUE
 		processScheduler.deferSetupfor (/process/ticker)
 		processScheduler.setup()
 		setup_everything()
+	TgsInitializationComplete()
 //		master_controller.setup()
 #ifdef UNIT_TEST
 		initialize_unit_tests()
@@ -160,6 +161,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	return T
 
 /world/Topic(T, addr, master, key)
+	#define TGS_TOPIC var/tgs_topic_return = TgsTopic(args[1]); if(tgs_topic_return) return tgs_topic_return
 	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key][log_end]"
 
 	// normal ss13 stuff
@@ -241,6 +243,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		sleep(sleeptime) // I think this is needed so C << link() doesn't fail
 		if (processScheduler) // just in case
 			processScheduler.stop() // will be started again after the serverswap occurs
+		TgsReboot()
 		..(reason)
 
 #define COLOR_LIGHT_SEPIA "#D4C6B8"
