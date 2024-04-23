@@ -68,6 +68,7 @@ var/world_is_open = TRUE
 
 #define RECOMMENDED_VERSION 514
 /world/New()
+	TgsNew()
 #ifdef USE_BYOND_TRACY
 	#warn USE_BYOND_TRACY is enabled
 	init_byond_tracy()
@@ -103,6 +104,7 @@ var/world_is_open = TRUE
 		processScheduler.deferSetupfor (/process/ticker)
 		processScheduler.setup()
 		setup_everything()
+	TgsInitializationComplete()
 //		master_controller.setup()
 #ifdef UNIT_TEST
 		initialize_unit_tests()
@@ -176,56 +178,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	return T
 
 /world/Topic(T, addr, master, key)
-// Пока без тгс
-//	TGS_TOPIC	//redirect to server tools if necessary
-
-	var/static/list/bannedsourceaddrs = list()
-
-	var/static/list/lasttimeaddr = list()
-	var/static/list/topic_handlers = TopicHandlers()
-
-	//LEAVE THIS COOLDOWN HANDLING IN PLACE, OR SO HELP ME I WILL MAKE YOU SUFFER
-	if (bannedsourceaddrs[addr])
-		return
-
-	var/list/filtering_whitelist = config.topic_filtering_whitelist
-	var/host = splittext_char(addr, ":")
-	if(!filtering_whitelist[host[1]]) // We only ever check the host, not the port (if provided)
-		if(length_char(T) >= MAX_TOPIC_LEN)
-			/*log_admin_private("*/
-			diary << "TOPIC: [addr] banned from topic calls for a round for too long status message"
-			bannedsourceaddrs[addr] = TOPIC_BANNED
-			return
-
-		if(lasttimeaddr[addr])
-			var/lasttime = lasttimeaddr[addr]
-			if(world.time < lasttime)
-				/*log_admin_private("*/
-				diary << "TOPIC: [addr] banned from topic calls for a round for too frequent messages"
-				bannedsourceaddrs[addr] = TOPIC_BANNED
-				return
-
-		lasttimeaddr[addr] = world.time + 1200 //2 секунды
-
-	var/list/input = params2list(T)
-	var/datum/world_topic/handler
-	for(var/I in topic_handlers)
-		if(I in input)
-			handler = topic_handlers[I]
-			break
-
-	if((!handler || initial(handler.log)) && config) //&& CONFIG_GET(flag/log_world_topic))
-		diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
-
-	if(!handler)
-		return
-
-	handler = new handler()
-	return handler.TryRun(input)
-
-/*
-// Old code
-/world/Topic(T, addr, master, key)
+	#define TGS_TOPIC var/tgs_topic_return = TgsTopic(args[1]); if(tgs_topic_return) return tgs_topic_return
 	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key][log_end]"
 
 	// normal ss13 stuff
@@ -312,6 +265,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		sleep(sleeptime) // I think this is needed so C << link() doesn't fail
 		if (processScheduler) // just in case
 			processScheduler.stop() // will be started again after the serverswap occurs
+		TgsReboot()
 		..(reason)
 
 #define COLOR_LIGHT_SEPIA "#D4C6B8"
