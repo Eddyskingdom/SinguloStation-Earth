@@ -1,3 +1,5 @@
+##TODO: MAKE THIS COMPATIBLE WITH NON-TGS INSTALLATIONS!!
+
 import sys
 import os
 import shutil
@@ -29,23 +31,17 @@ all_lines = lines.readlines()
 mdir = all_lines[1]
 mdir = mdir.replace("\n", "")
 mdir = mdir.replace("mdir:", "")
-cdir = all_lines[2]
-cdir = cdir.replace("\n", "")
-cdir = cdir.replace("cdir:", "")
-port = all_lines[3]
+port = all_lines[2]
 port = port.replace("\n", "")
 port = port.replace("port:", "")
-byonddir = all_lines[4]
+byonddir = all_lines[3]
 byonddir = byonddir.replace("\n", "")
 byonddir = byonddir.replace("byond_dir:", "")
-os.chdir("{}civ13-git".format(mdir))
-os.system("git pull")
-os.system("git reset --hard origin/master")
-
+os.chdir("{}SinguloStation-Earth/Game/Live/".format(mdir))
 map = sys.argv[1]
 dmms = []
 mapname = "{}.dmm".format(map.lower())
-maploc = "{}civ13-git/maps/".format(mdir)
+maploc = "{}SinguloStation-Earth/Game/Live/maps/".format(mdir)
 maplist = getListOfFiles(maploc)
 done = 0
 for i in maplist:
@@ -57,10 +53,10 @@ if done == 0:
 else:
 	maploc = maploc.replace(mdir,"")
 	maploc = maploc.replace("\\","/")
-	maploc = maploc.replace("civ13-git/","")
+	maploc = maploc.replace("SinguloStation-Earth/Game/Live/","")
 	dmms.append("#include \"{}\"".format(maploc))
 
-DME = "{}civ13-git/earth.dme".format(mdir)
+DME = "{}SinguloStation-Earth/Game/Live/earth.dme".format(mdir)
 
 lines = []
 with open(DME, "r") as search:
@@ -85,17 +81,16 @@ DME.close()
 
 t1 = time.time()
 
-os.system('"{}/bin/dm.exe" {}civ13-git/earth.dme'.format(byonddir,mdir))
-
-os.system('python3 "{}{}scripts/windows/copyconfigfiles.py"'.format(mdir,cdir))
+os.system('{}/bin/dm.exe" {}SinguloStation-Earth/Game/Live/earth.dme'.format(byonddir,mdir))
 
 t2 = time.time() - t1
 
-time.sleep(30)
+time.sleep(1)
+print("Killing DD")
 os.system("taskkill /f /im dreamdaemon.exe")
-dmb = os.path.join('{}civ13-git/earth.dmb'.format(mdir))
-rsc = os.path.join('{}civ13-git/civ13.rsc'.format(mdir))
-shutil.copyfile(dmb, '{}{}earth.dmb'.format(mdir,cdir))
-shutil.copyfile(rsc, '{}{}civ13.rsc'.format(mdir,cdir))
-time.sleep(8)
-os.system("\"{}/bin/dreamdaemon.exe\" {}{}earth.dmb {} -trusted -webclient -logself".format(byonddir,mdir,cdir,port))
+dmb = os.path.join('{}SinguloStation-Earth/Game/Live/earth.dmb'.format(mdir))
+rsc = os.path.join('{}SinguloStation-Earth/Game/Live/earth.rsc'.format(mdir))
+shutil.copyfile(dmb, '{}earth.dmb'.format(mdir))
+shutil.copyfile(rsc, '{}earth.rsc'.format(mdir))
+time.sleep(1)
+os.system("\"{}/bin/dreamdaemon.exe\" {}earth.dmb {} -trusted -webclient -logself".format(byonddir,mdir,port))
