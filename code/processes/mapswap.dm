@@ -340,6 +340,8 @@
 	if (!done)
 		processes.python.execute("mapswap.py", list(winner))
 		done = TRUE
+		spawn(90 SECONDS)
+			world.Reboot()
 
 /process/gamemode
 	var/ready = TRUE
