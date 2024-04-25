@@ -40,11 +40,13 @@ Most scripts are called externally by our [Discord bot](https://github.com/Valgo
 4. Open earth.dmb with BYOND DreamSeeker to launch the server.
 
 
-### Linux
-1. You will need a linux machine for the automated install, preferably Ubuntu. Open the command line.
+~~### Linux~~
+~~1. You will need a linux machine for the automated install, preferably Ubuntu. Open the command line.~~
  
-2. Download the INSTALL file. You can use ***wget https://raw.githubusercontent.com/SinguloStation13/SinguloStation-Earth/master/INSTALL*** for it. If you don't have wget installed, use ***sudo apt install wget*** first.
+~~2. Download the INSTALL file. You can use ***wget https://raw.githubusercontent.com/SinguloStation13/SinguloStation-Earth/master/INSTALL*** for it. If you don't have wget installed, use ***sudo apt install wget*** first.~~
 
-3. Use **sudo bash INSTALL** and it should install everything you need.
+~~3. Use **sudo bash INSTALL** and it should install everything you need.~~
 
-4. You're all set! Run the **launch.py** file inside the **scripts/** folder. Use ***python3 launch.py***.
+~~4. You're all set! Run the **launch.py** file inside the **scripts/** folder. Use ***python3 launch.py***.~~
+
+**LINUX COMPATIBILITY HAS BEEN TEMPORARILY REMOVED FROM THE CODEBASE**. It will still run, but certain features requiring Python code will *not* work.

@@ -1158,5 +1158,5 @@
 #include "code\tgs\includes.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
-#include "maps\nomads\nomads.dmm"
+#include "maps/nomads/nomads.dmm"
 // END_INCLUDE

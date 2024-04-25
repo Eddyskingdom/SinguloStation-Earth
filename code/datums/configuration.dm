@@ -68,7 +68,7 @@ var/list/gamemode_cache = list()
 
 	var/ssd_invisibility_timer = 10
 
-	var/masterdir = "/home/1713"
+	var/masterdir = "C:/Singulo/Earth/SinguloStation-Earth/Game/Live"
 
 	var/serverurl
 	var/server
