@@ -21,11 +21,13 @@
 	if (!holder)
 		src << "Only administrators may use this command."
 		return
-	var/mapswap = input(usr, "Type the ID of a map to swap to! Type \"Cancel\" to cancel.", "Mapswap", map.ID)
+	var/mapswap = input(usr, "Type the ID of a map to swap to! Type \"Cancel\" to cancel. This will initiate code compilation serverside, so it may cause some lag.", "Mapswap", map.ID)
 	if(mapswap != "Cancel")
 		processes.python.execute("mapswap.py", list(mapswap))
 		log_admin("[key_name(usr)] swapped maps to [mapswap]!")
 		message_admins("[key_name_admin(usr)] swapped maps to [mapswap]!", key_name_admin(usr))
+		spawn(90 SECONDS)
+			message_admins("Server compilation should probably be done by now. Ready to reboot, use the reboot verb to initiate.")
 	else
 		return
 
