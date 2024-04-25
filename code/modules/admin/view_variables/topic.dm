@@ -105,12 +105,6 @@
 		if (usr.client)
 			usr.client.cmd_admin_drop_everything(M)
 
-	else if (href_list["mapswap"])
-		if (!check_rights(R_DEBUG|R_ADMIN))
-			return
-		if (usr.client)
-			usr.client.cmd_admin_mapswap()
-
 	else if (href_list["direct_control"])
 		if (!check_rights(0))	return
 

@@ -15,19 +15,6 @@
 	log_admin("[key_name(usr)] made [key_name(M)] drop everything!")
 	message_admins("[key_name_admin(usr)] made [key_name_admin(M)] drop everything!", key_name_admin(usr))
 
-/client/proc/cmd_admin_mapswap()
-	set category = "Server"
-	set name = "Mapswap"
-	if (!holder)
-		src << "Only administrators may use this command."
-		return
-	var/mapswap = input(usr, "Type the ID of a map to swap to! Type \"Cancel\" to cancel.", "Mapswap", map.ID)
-	if(mapswap != "Cancel")
-		processes.python.execute("mapswap.py", list(mapswap))
-		log_admin("[key_name(usr)] swapped maps to [mapswap]!")
-		message_admins("[key_name_admin(usr)] swapped maps to [mapswap]!", key_name_admin(usr))
-	else
-		return
 
 /client/proc/cmd_admin_subtle_message(mob/M as mob in mob_list)
 	set category = "Special"
