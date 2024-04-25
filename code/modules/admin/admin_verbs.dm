@@ -133,7 +133,6 @@ var/list/admin_verbs_server = list(
 	/datum/admins/proc/restart,
 	/datum/admins/proc/delay,
 	/client/proc/trigger_roundend,
-	/client/proc/cmd_admin_mapswap,
 	/client/proc/toggle_round_ending,
 	/client/proc/toggle_log_hrefs,
 	/datum/admins/proc/immreboot,
