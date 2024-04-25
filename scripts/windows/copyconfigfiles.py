@@ -14,7 +14,7 @@ cdir = cdir.replace("cdir:", "")
 with open(os.path.join(mdir, cdir, "scripts/windows/copiedconfigpaths.txt")) as lines:
     for line in lines:
         path = line.replace("\n", "")
-        shutil.copyfile(os.path.join(mdir, "civ13-git", path),
+        shutil.copyfile(os.path.join(mdir, "Live", path),
                         os.path.join(mdir, cdir, path))
 
 with open(os.path.join(mdir, cdir, 'scripts/windows/copiedfolderpaths.txt')) as lines:
@@ -23,4 +23,4 @@ with open(os.path.join(mdir, cdir, 'scripts/windows/copiedfolderpaths.txt')) as 
         npath = os.path.join(mdir, cdir, path)
         if os.path.isdir(npath):
             shutil.rmtree(npath)
-        shutil.copytree(os.path.join(mdir, "civ13-git/", path), npath)
+        shutil.copytree(os.path.join(mdir, "Live/", path), npath)
