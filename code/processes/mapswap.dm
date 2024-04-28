@@ -380,7 +380,7 @@
 					message_admins("#include \"maps/[map_folder][lowertext(winner)].dmm\" written to nextmap.dm")
 					shell("dm earth.dme")
 					message_admins("Compilation initiated.")
-				message_admins("Mapswap to \"maps/[map_folder][lowertext(mapswap)].dmm\" successful!")
+				message_admins("Mapswap to \"maps/[map_folder][lowertext(winner)].dmm\" successful!")
 				break
 		spawn(90 SECONDS)
 			world.Reboot()
