@@ -357,7 +357,7 @@
 						"User-Agent" = "SSE/1.0.0.0",
 						"Authorization: Basic [rustg_encode_base64(config.tgs_authdetails)]"
 					))
-					var/list/login_data = json_decode(rustg_http_request_blocking(RUSTG_HTTP_METHOD_POST, "http://127.0.0.1:5000/api", "", login_headers_txt, ""))
+					var/list/login_data = json_decode(rustg_http_request_blocking(RUSTG_HTTP_METHOD_POST, "http://127.0.0.1:5000/api", "", login_headers_txt, null))
 					var/list/authtoken_wrapper = json_decode(login_data["body"])
 					var/auth_token = authtoken_wrapper["bearer"]
 
@@ -369,7 +369,7 @@
 						"Authorization" = "Bearer [auth_token]",
 						"Instance" = config.tgs_instance_id
 					))
-					rustg_http_request_blocking(RUSTG_HTTP_METHOD_PUT, "http://127.0.0.1:5000/api/DreamMaker", "", deploy_headers_txt, "")
+					rustg_http_request_blocking(RUSTG_HTTP_METHOD_PUT, "http://127.0.0.1:5000/api/DreamMaker", "", deploy_headers_txt, null)
 				else
 					fdel("nextmap.dm")
 					text2file("", "nextmap.dm")
