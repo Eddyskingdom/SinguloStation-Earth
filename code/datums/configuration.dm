@@ -171,6 +171,12 @@ var/list/gamemode_cache = list()
 
 	var/topic_filtering_whitelist = list("127.0.0.1")
 
+	var/tgs_dir = null
+	var/tgs_authdetails = null
+	var/tgs_instance_id = null
+
+	//language
+	var/game_language = "english"
 /datum/configuration/proc/load(filename, type = "config") //the type can also be game_options, in which case it uses a different switch. not making it separate to not copypaste code - Urist
 
 	var/list/Lines = file2list(filename)
@@ -484,6 +490,14 @@ var/list/gamemode_cache = list()
 				if("error_msg_delay")
 					error_msg_delay = text2num(value)
 
+				if ("language")
+					config.game_language = value
+				if ("tgs_dir")
+					config.tgs_dir = value
+				if ("tgs_authentication_details")
+					config.tgs_authdetails = value
+				if ("tgs_instance_id")
+					config.tgs_instance_id = value
 				else
 					log_misc("Unknown setting in configuration: '[name]'")
 

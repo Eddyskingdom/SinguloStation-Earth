@@ -12,6 +12,7 @@
 // BEGIN_INCLUDE
 #include "_auxtools.dm"
 #include "code\__byond_version_compat.dm"
+#include "nextmap.dm"
 #include "code\_macros.dm"
 #include "code\client_macros.dm"
 #include "code\global.dm"
@@ -22,6 +23,7 @@
 #include "code\names.dm"
 #include "code\pathfinding.dm"
 #include "code\predefines.dm"
+#include "code\rust_g.dm"
 #include "code\setup.dm"
 #include "code\stylesheet.dm"
 #include "code\world.dm"
@@ -1158,5 +1160,4 @@
 #include "code\tgs\includes.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
-#include "maps\nomads\nomads.dmm"
 // END_INCLUDE
