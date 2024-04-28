@@ -14,6 +14,7 @@
 #include "code\__byond_version_compat.dm"
 #include "nextmap.dm"
 #include "code\_macros.dm"
+#include "code\_tgs_defines.dm"
 #include "code\client_macros.dm"
 #include "code\global.dm"
 #include "code\hooks.dm"
