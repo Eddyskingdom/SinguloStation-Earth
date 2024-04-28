@@ -178,7 +178,8 @@ var/world_topic_spam_protect_time = world.timeofday
 	return T
 
 /world/Topic(T, addr, master, key)
-	#define TGS_TOPIC var/tgs_topic_return = TgsTopic(args[1]); if(tgs_topic_return) return tgs_topic_return
+	TGS_TOPIC
+	
 	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key][log_end]"
 
 	// normal ss13 stuff
