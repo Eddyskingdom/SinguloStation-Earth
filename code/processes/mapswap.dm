@@ -346,10 +346,11 @@
 			done = TRUE
 			if(map_in_dir)
 				if(world.TgsAvailable())
+					message_admins("TGS is available.")
 					fdel("[config.tgs_dir]/Configuration/CodeModifications/nextmap.dm")
 					text2file("", "[config.tgs_dir]/Configuration/CodeModifications/nextmap.dm")
 					text2file("#include \"maps/[map_folder][lowertext(winner)].dmm\"", "[config.tgs_dir]/Configuration/CodeModifications/nextmap.dm")
-
+					message_admins("#include \"maps/[map_folder][lowertext(winner)].dmm\" written to [config.tgs_dir]/Configuration/CodeModifications/nextmap.dm")
 					//Login to TGS
 					var/login_headers_txt = json_encode(list(
 						"Accept" = "application/json",
@@ -370,11 +371,16 @@
 						"Instance" = config.tgs_instance_id
 					))
 					rustg_http_request_blocking(RUSTG_HTTP_METHOD_PUT, "http://127.0.0.1:5000/api/DreamMaker", "", deploy_headers_txt, null)
+					message_admins("Compilation initiated.")
 				else
+					message_admins("TGS is unavailable.")
 					fdel("nextmap.dm")
 					text2file("", "nextmap.dm")
 					text2file("#include \"maps/[map_folder][lowertext(winner)].dmm\"", "nextmap.dm")
+					message_admins("#include \"maps/[map_folder][lowertext(winner)].dmm\" written to nextmap.dm")
 					shell("dm earth.dme")
+					message_admins("Compilation initiated.")
+				message_admins("Mapswap to \"maps/[map_folder][lowertext(mapswap)].dmm\" successful!")
 				break
 		spawn(90 SECONDS)
 			world.Reboot()
