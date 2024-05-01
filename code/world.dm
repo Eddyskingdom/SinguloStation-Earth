@@ -177,6 +177,55 @@ var/world_topic_spam_protect_time = world.timeofday
 
 	return T
 
+/world/Topic(T, addr, master, key) //rebased from civ13/civ13, taken from ruciv
+	TGS_TOPIC
+
+	var/static/list/bannedsourceaddrs = list()
+
+	var/static/list/lasttimeaddr = list()
+	var/static/list/topic_handlers = TopicHandlers()
+
+	//LEAVE THIS COOLDOWN HANDLING IN PLACE, OR SO HELP ME I WILL MAKE YOU SUFFER
+	if (bannedsourceaddrs[addr])
+		return
+
+	var/list/filtering_whitelist = config.topic_filtering_whitelist
+	var/host = splittext_char(addr, ":")
+	if(!filtering_whitelist[host[1]]) // We only ever check the host, not the port (if provided)
+		if(length_char(T) >= MAX_TOPIC_LEN)
+			/*log_admin_private("*/
+			diary << "TOPIC: [addr] banned from topic calls for a round for too long status message"
+			bannedsourceaddrs[addr] = TOPIC_BANNED
+			return
+
+		if(lasttimeaddr[addr])
+			var/lasttime = lasttimeaddr[addr]
+			if(world.time < lasttime)
+				/*log_admin_private("*/
+				diary << "TOPIC: [addr] banned from topic calls for a round for too frequent messages"
+				bannedsourceaddrs[addr] = TOPIC_BANNED
+				return
+
+		lasttimeaddr[addr] = world.time + 1200 //2 секунды
+
+	var/list/input = params2list(T)
+	var/datum/world_topic/handler
+	for(var/I in topic_handlers)
+		if(I in input)
+			handler = topic_handlers[I]
+			break
+
+	if((!handler || initial(handler.log)) && config) //&& CONFIG_GET(flag/log_world_topic))
+		diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
+
+	if(!handler)
+		return
+
+	handler = new handler()
+	return handler.TryRun(input)
+
+/*
+
 /world/Topic(T, addr, master, key)
 	TGS_TOPIC
 	
@@ -251,6 +300,7 @@ var/world_topic_spam_protect_time = world.timeofday
 				s["gamemode"] = map.gamemode
 			s["season"] = season
 		return list2params(s)
+
 */
 
 /world/Reboot(var/reason)
