@@ -36,8 +36,8 @@ os.system('python3 "{}{}scripts/windows/copyconfigfiles.py"'.format(mdir,cdir))
 
 print("Copying binaries...")
 
-dmb = os.path.join(mdir,'civ13-git/earth.dmb')
-rsc = os.path.join(mdir,'civ13-git/earth.rsc')
+dmb = os.path.join(mdir,'Live/earth.dmb')
+rsc = os.path.join(mdir,'Live/civ13.rsc')
 
 shutil.copyfile(dmb, '{}{}earth.dmb'.format(mdir,cdir))
 
