@@ -39,7 +39,7 @@
 		process_awards()
 	if (transforming)
 		return
-	if (werewolf + gorillaman + orc +goblin + ant + lizard + wolfman + crab > 1)
+	if (werewolf || gorillaman || orc || goblin || ant || lizard || wolfman || crab || droid)
 		werewolf = 0
 		gorillaman = 0
 		orc = 0
@@ -48,6 +48,7 @@
 		lizard = 0
 		wolfman = 0
 		crab = 0
+		droid = 0
 		handle_animalistic("Default")
 
 	if (werewolf)
@@ -66,7 +67,9 @@
 		handle_animalistic("Wolf")
 	else if (crab)
 		handle_animalistic("Crab")
-	else if (!gorillaman && !werewolf && !orc && !goblin && !ant && !lizard && !wolfman && !crab && body_build.name != "Default")
+	else if (droid)
+		handle_animalistic("Droid")
+	else if (!gorillaman && !werewolf && !orc && !goblin && !ant && !lizard && !wolfman && !crab && !droid && body_build.name != "Default")
 		handle_animalistic("Default")
 //	if (prone)
 //		lying = 1
@@ -118,6 +121,8 @@
 		mood -= 0.05
 	else if (mood < 40) //moves to 40 if below 40
 		mood += 0.05
+	if (droid)
+		mood = 100
 	if(istype(buckled, /obj/structure/cross))
 		if (stats["stamina"][1] > 0)
 			stats["stamina"][1]-=3
@@ -179,6 +184,9 @@
 			water_m *= 2.5
 		if (gorillaman)
 			water_m *= 0.2
+		if (droid)
+			food_m *= 0
+			water_m *= 0
 		if (istype(buckled, /obj/structure/cross))
 			food_m *= 1.5
 			water_m *= 5
@@ -551,6 +559,12 @@
 
 
 	if (disease == TRUE)
+		if (droid)
+			disease = FALSE
+			disease_type = "none"
+			disease_progression = 0
+			disease_treatment = 0
+
 		if (disease_type in disease_immunity)
 			disease = FALSE
 			disease_type = "none"
@@ -1697,7 +1711,7 @@
 						holder2.icon_state = ""
 					else
 						holder2.overlays += icon(holder2.icon,"nco")
-			if (map.ID == MAP_OPERATION_FALCON || map.ID == MAP_VADSO_CITY)
+			if (map.ID == MAP_CAMPAIGN || map.ID == MAP_OPERATION_FALCON || map.ID == MAP_VADSO_CITY)
 				if (original_job.is_commander)
 					to_chat(world, "<font color='green' size=4>[ckey] is now the <b>[capitalize(lowertext(faction_text))] Army</b> Commander!</font>")
 			if (original_job.is_medic)

@@ -3,7 +3,11 @@ var/list/forbidden_pref_save_varnames = list("client_ckey", "last_id")
 /datum/preferences/proc/preferences_exist(var/list/l_charprefs = list())
 	if (isemptylist(l_charprefs))
 		return FALSE
-	var/F = file("SQL/charprefs.txt")
+	var/F
+	if (world.TgsAvailable())
+		F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/charprefs.txt")
+	else
+		F = file("SQL/charprefs.txt")
 	var/list/charprefs = splittext(file2text(F), "|||\n")
 	for (var/i=1;i<charprefs.len;i++)
 		var/list/charprefs2 = splittext(charprefs[i], ";")
@@ -16,7 +20,10 @@ var/list/forbidden_pref_save_varnames = list("client_ckey", "last_id")
 	if (!client_ckey)
 		return FALSE
 	if (isemptylist(charprefs))
-		charprefs = splittext(file2text("SQL/charprefs.txt"), "|||\n")
+		if (world.TgsAvailable())
+			charprefs = splittext(file2text("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/charprefs.txt"), "|||\n")
+		else
+			charprefs = splittext(file2text("SQL/charprefs.txt"), "|||\n")
 
 	var/done1 = FALSE
 	var/table = 0
@@ -106,7 +113,11 @@ var/list/forbidden_pref_save_varnames = list("client_ckey", "last_id")
 
 	if (dd_hassuffix(params, ";"))
 		params = copytext(params, 1, length(params))
-	var/F = file("SQL/charprefs.txt")
+	var/F
+	if (world.TgsAvailable())
+		F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/charprefs.txt")
+	else
+		F = file("SQL/charprefs.txt")
 	var/done1 = FALSE
 	if (isemptylist(charprefs))
 		charprefs = splittext(file2text(F), "|||\n")

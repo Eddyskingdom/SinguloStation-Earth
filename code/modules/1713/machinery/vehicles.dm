@@ -40,6 +40,7 @@
 	var/matrix_l = 0
 	var/matrix_h = 0
 	var/list/matrix_current_locs = list()
+
 /obj/structure/vehicleparts/axis/bike
 	name = "motorcycle axis"
 	currentspeed = 0
@@ -88,12 +89,38 @@
 	speedlist = list(1=12,2=8,3=6)
 	vehicle_type = "tank"
 
+/obj/structure/vehicleparts/axis/heavy/is1
+	name = "IS-1"
+	speeds = 4
+	speedlist = list(1=12,2=8,3=6,4=5)
+	reg_number = ""
+	color = "#4a5243"
+	broken_icon = 'icons/obj/vehicles/tankparts96x96_damaged.dmi'
+	New()
+		..()
+		var/pickedname = pick(tank_names_soviet)
+		tank_names_soviet -= pickedname
+		name = "[name] \'[pickedname]\'"
+
+/obj/structure/vehicleparts/axis/heavy/is2
+	name = "IS-2"
+	speeds = 4
+	speedlist = list(1=12,2=8,3=6,4=5)
+	reg_number = ""
+	color = "#4a5243"
+	broken_icon = 'icons/obj/vehicles/tankparts96x96_damaged.dmi'
+	New()
+		..()
+		var/pickedname = pick(tank_names_soviet)
+		tank_names_soviet -= pickedname
+		name = "[name] \'[pickedname]\'"
+
 /obj/structure/vehicleparts/axis/heavy/is3
 	name = "IS-3"
 	speeds = 4
 	speedlist = list(1=12,2=8,3=6,4=5)
 	reg_number = ""
-	color = "#5C5C4C"
+	color = "#4a5243"
 	broken_icon = 'icons/obj/vehicles/tankparts96x96_damaged.dmi'
 	New()
 		..()
@@ -170,7 +197,6 @@
 		tank_names_soviet -= pickedname
 		name = "[name] \'[pickedname]\'"
 
-
 /obj/structure/vehicleparts/axis/heavy/mtlb
 	name = "MT-LB"
 	speeds = 4
@@ -191,6 +217,18 @@
 	reg_number = ""
 	color = "#939276"
 	vehicle_type = "apc"
+	New()
+		..()
+		var/pickedname = pick(tank_names_usa)
+		tank_names_usa -= pickedname
+		name = "[name] \'[pickedname]\'"
+
+/obj/structure/vehicleparts/axis/heavy/m41
+	name = "M41"
+	speeds = 4
+	speedlist = list(1=14,2=10,3=8)
+	reg_number = ""
+	color = "#494224"
 	New()
 		..()
 		var/pickedname = pick(tank_names_usa)
@@ -232,7 +270,7 @@
 	speeds = 5
 	speedlist = list(1=10,2=6,3=5,4=4,5=3)
 	reg_number = ""
-	color = "#787859"
+	color = "#4a5243"
 	broken_icon = 'icons/obj/vehicles/apcparts96x96_damaged.dmi'
 	vehicle_type = "apc"
 	New()
@@ -263,6 +301,30 @@
 	reg_number = ""
 	color = "#5C5C4C"
 	vehicle_type = "apc"
+
+/obj/structure/vehicleparts/axis/heavy/t80u
+	name = "T-80U"
+	speeds = 4
+	speedlist = list(1=10,2=7,3=5,4=4)
+	reg_number = ""
+	color = "#5C5C4C"
+	New()
+		..()
+		var/pickedname = pick(tank_names_soviet)
+		tank_names_soviet -= pickedname
+		name = "[name] \'[pickedname]\'"
+
+/obj/structure/vehicleparts/axis/heavy/t80uk
+	name = "T-80UK"
+	speeds = 4
+	speedlist = list(1=10,2=7,3=5,4=4)
+	reg_number = ""
+	color = "#5C5C4C"
+	New()
+		..()
+		var/pickedname = pick(tank_names_soviet)
+		tank_names_soviet -= pickedname
+		name = "[name] \'[pickedname]\'"
 
 /obj/structure/vehicleparts/axis/heavy/t72
 	name = "T-72"
@@ -505,7 +567,7 @@
 	name = "M-4 Sherman"
 	speeds = 4
 	speedlist = list(1=12,2=8,3=6,4=5)
-	color = "#293822"
+	color = "#494224"
 	reg_number = ""
 	New()
 		..()
@@ -517,7 +579,7 @@
 	name = "M-48A1 Patton"
 	speeds = 4
 	speedlist = list(1=12,2=8,3=6,4=5)
-	color = "#293822"
+	color = "#494224"
 	reg_number = ""
 	New()
 		..()
@@ -609,7 +671,7 @@
 	if(istype(H.driver_vehicle, /obj/structure/vehicle/carriage))
 		var/obj/structure/vehicle/carriage/M = H.driver_vehicle
 		if(M.buckled_animal_propulsion <= 0)
-			H << "You need animals to move the [H.driver_vehicle.name]."
+			to_chat(H, "You need animals to move the [H.driver_vehicle.name].")
 			return
 		else if(M.buckled_animal_propulsion == 1)
 			H.driver_vehicle.axis.speedlist = list(1=25,2=20)
@@ -632,7 +694,7 @@
 			if (H.driver_vehicle.axis.currentspeed == 1)
 				H.driver_vehicle.moving = TRUE
 				H.driver_vehicle.startmovementloop()
-				H << "You hit the animal to move."
+				to_chat(H, "You hit the animal to move.")
 		return
 	else if (H.driver_vehicle.axis.currentspeed<H.driver_vehicle.axis.speedlist.len)
 		H.driver_vehicle.axis.currentspeed++
@@ -643,7 +705,7 @@
 			return
 		else
 			H.driver_vehicle.vehicle_m_delay = spd
-			H << "You hit the animal harder."
+			to_chat(H, "You hit the animal harder.")
 			return
 	else
 		return
@@ -656,11 +718,11 @@
 		var/spd = user.driver_vehicle.axis.get_speed()
 		if (spd <= 0 || user.driver_vehicle.axis.currentspeed == 0)
 			user.driver_vehicle.moving = FALSE
-			user << "You stop \the [user.driver_vehicle]."
+			to_chat(user, "You stop \the [user.driver_vehicle].")
 			return
 		else
 			user.driver_vehicle.vehicle_m_delay = spd
-			user << "You pull the rope to reduce the speed."
+			to_chat(user, "You pull the rope to reduce the speed.")
 			return
 
 /obj/item/vehicleparts/wheel/handle
@@ -678,6 +740,7 @@
 	desc = "Used to steer a boat and control the sails."
 	icon_state = "rudder"
 	var/spamtimer = 0
+
 /obj/item/vehicleparts/wheel/rudder_sails/attack_self(mob/living/human/H)
 	if(!H.driver_vehicle)
 		return
@@ -688,17 +751,18 @@
 	if (H.driver_vehicle.sails)
 		if (!H.driver_vehicle.sails_on)
 			if (world.time > spamtimer)
-				H << "You hoist the sails."
+				to_chat(H, "You hoist the sails.")
 				H.driver_vehicle.sails_on = TRUE
 				H.driver_vehicle.check_sails()
 				spamtimer = world.time + 20
 				H.driver_vehicle.update_overlay()
 				return
 		else
-			H << "You retract the sails."
+			to_chat(H, "You retract the sails.")
 			H.driver_vehicle.sails_on = FALSE
 			H.driver_vehicle.update_overlay()
 			return
+
 /obj/item/vehicleparts/wheel/attack_self(mob/living/human/H)
 	if(!H.driver_vehicle)
 		return
@@ -715,7 +779,7 @@
 				H.driver_vehicle.running_sound()
 		return
 	else if (H.driver_vehicle.fueltank.reagents.total_volume <= 0)
-		H << "There is not enough fuel!"
+		to_chat(H, "There is not enough fuel!")
 		return
 
 	if (H.driver_vehicle.axis.currentspeed <= 0)
@@ -729,11 +793,11 @@
 			if (H.driver_vehicle.axis.currentspeed == 1)
 				H.driver_vehicle.moving = TRUE
 				H.driver_vehicle.startmovementloop()
-				H << "You put on the first gear."
+				to_chat(H, "You put the vehicle into first gear.")
 		return
-	else if (H.driver_vehicle.axis.currentspeed<H.driver_vehicle.axis.speedlist.len)
+	else if (H.driver_vehicle.axis.currentspeed < H.driver_vehicle.axis.speedlist.len)
 		H.driver_vehicle.axis.currentspeed++
-		if (H.driver_vehicle.axis.currentspeed>H.driver_vehicle.axis.speedlist.len)
+		if (H.driver_vehicle.axis.currentspeed > H.driver_vehicle.axis.speedlist.len)
 			H.driver_vehicle.axis.currentspeed = H.driver_vehicle.axis.speedlist.len
 		var/spd = H.driver_vehicle.axis.get_speed()
 		if (spd <= 0)
@@ -741,7 +805,7 @@
 		else
 			H.driver_vehicle.vehicle_m_delay = spd
 			if (H.driver_vehicle.axis.currentspeed < H.driver_vehicle.axis.speedlist.len+1)
-				H << "You increase the speed."
+				to_chat(H, "You increase the speed.")
 			return
 	else
 		return
@@ -761,11 +825,11 @@
 		var/spd = user.driver_vehicle.axis.get_speed()
 		if (spd <= 0 || user.driver_vehicle.axis.currentspeed == 0)
 			user.driver_vehicle.moving = FALSE
-			user << "You stop \the [user.driver_vehicle]."
+			to_chat(user, "You stop \the [user.driver_vehicle].")
 			return
 		else
 			user.driver_vehicle.vehicle_m_delay = spd
-			user << "You reduce the speed."
+			to_chat(user, "You reduce the speed.")
 			return
 ///////////////////FRAME///////////////////////////////
 /obj/item/vehicleparts/frame
@@ -829,7 +893,7 @@
 	weight = 60
 	step = 1
 	maxstep = 3
-	//targettype = /obj/structure/vehicle/boat/rhib // who knows what this will have to be fixed later [translated]
+	targettype = /obj/structure/vehicle/boat/rhib
 
 /obj/item/vehicleparts/frame/proc/do_color()
 	colorv = image("icon" = icon, "icon_state" = "[icon_state]_mask")

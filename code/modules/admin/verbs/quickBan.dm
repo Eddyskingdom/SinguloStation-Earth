@@ -17,8 +17,12 @@ var/list/ban_types = list("Faction Ban", "Job Ban", "Server Ban", "Playing Ban",
 
 		var/bans_file = null
 
-		if (fexists("SQL/bans.txt"))
-			bans_file = "SQL/bans.txt"
+		if(world.TgsAvailable())
+			if (fexists("SQL/bans.txt"))
+				bans_file = "SQL/bans.txt"
+		else
+			if (fexists("SQL/bans.txt"))
+				bans_file = "SQL/bans.txt"
 
 		if (bans_file)
 			var/details = file2text(bans_file)

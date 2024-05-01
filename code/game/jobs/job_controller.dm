@@ -330,6 +330,8 @@ var/global/datum/controller/occupations/job_master
 				continue
 			if (T.density)
 				spawnable_turf = FALSE
+			if (istype(T, /turf/floor/beach/water/deep))
+				spawnable_turf = FALSE
 			if (spawnable_turf && !blocked)
 				valid_spawns += T
 
@@ -494,6 +496,10 @@ var/global/datum/controller/occupations/job_master
 			H.wolfman = 1
 		if (map && H && (H.faction_text in map.crab))
 			H.crab = 1
+		if (map && H && (H.faction_text in map.goblin))
+			H.goblin = 1
+		if (map && H && (H.faction_text in map.droid))
+			H.droid = 1
 		var/spawn_location = H.original_job.spawn_location
 		H.job_spawn_location = spawn_location
 

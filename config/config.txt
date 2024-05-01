@@ -3,7 +3,7 @@
 SERVER_NAME SinguloStation Earth
 
 ## Where is the game folder located?
-MASTER_DIRECTORY /home/1713
+MASTER_DIRECTORY C:/Singulo/Earth/SinguloStation-Earth/Game/Live/
 
 ## If this server is running: Persistence mode, RP maps only, TDM only, or both (PERSISTENCE RP TDM ALL).
 ALLOWED_GAMEMODES RP
@@ -224,3 +224,12 @@ SKIP_PERSISTENCE_SAVING
 #WEBHOOK_KEY
 
 LANGUAGE english
+
+#Uncomment and point to the directory containing "Byond", "Configuration", "Game", and "Repository", if using TGS. Do NOT put a / or \ at the end!
+#TGS_DIR C:\Singulo\Earth\SinguloStation-Earth
+
+#Username and password for a user account on your TGS server with deployment permissions on your instance, joined with a colon.
+#TGS_AUTHENTICATION_DETAILS username:password
+
+#The instance ID of your server for TGS.
+#TGS_INSTANCE_ID 1

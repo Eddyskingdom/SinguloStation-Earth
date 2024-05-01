@@ -15,6 +15,67 @@
 	log_admin("[key_name(usr)] made [key_name(M)] drop everything!")
 	message_admins("[key_name_admin(usr)] made [key_name_admin(M)] drop everything!", key_name_admin(usr))
 
+/client/proc/cmd_admin_mapswap()
+	set category = "Server"
+	set name = "Mapswap"
+	if (!holder)
+		src << "Only administrators may use this command."
+		return
+	var/mapswap = input(usr, "Type the name of a map to swap to (CASE SENSITIVE, NO FILE NAME EXTENSIONS)! Type \"Cancel\" to cancel. This will initiate code compilation serverside, so it may cause some lag.", "Mapswap", map.ID)
+
+	if(mapswap != "Cancel")
+		//processes.python.execute("mapswap.py", list(mapswap))
+		var/list/map_directories = flist("maps/")
+		var/i = 1
+		for(var/map_dir_len = map_directories.len, map_dir_len !=0, map_dir_len--)
+			var/map_folder = map_directories[i]
+			var/map_in_dir = fexists("maps/[map_directories[i++]]/[lowertext(mapswap)].dmm")
+			if(map_in_dir)
+				if(world.TgsAvailable())
+					message_admins("TGS is available.")
+					fdel("[config.tgs_dir]/Configuration/CodeModifications/nextmap.dm")
+					text2file("", "[config.tgs_dir]/Configuration/CodeModifications/nextmap.dm")
+					text2file("#include \"maps/[map_folder][lowertext(mapswap)].dmm\"", "[config.tgs_dir]/Configuration/CodeModifications/nextmap.dm")
+					message_admins("#include \"maps/[map_folder][lowertext(mapswap)].dmm\" written to [config.tgs_dir]/Configuration/CodeModifications/nextmap.dm")
+					//Login to TGS
+					var/login_headers_txt = json_encode(list(
+						"Accept" = "application/json",
+						"Api" = "Tgstation.Server.Api/10.3.0",
+						"User-Agent" = "SSE/1.0.0.0",
+						"Authorization" = "Basic [rustg_encode_base64(config.tgs_authdetails)]"
+					))
+					var/login_request = rustg_http_request_blocking(RUSTG_HTTP_METHOD_POST, "http://127.0.0.1:5000/api", "", login_headers_txt, null)
+					var/list/login_data = json_decode(login_request)
+					var/list/authtoken_wrapper = json_decode(login_data["body"])
+					var/auth_token = authtoken_wrapper["bearer"]
+
+					//Deploy the instance
+					var/deploy_headers_txt = json_encode(list(
+						"Accept" = "application/json",
+						"Api" = "Tgstation.Server.Api/10.3.0",
+						"User-Agent" = "SSE/1.0.0.0",
+						"Authorization" = "Bearer [auth_token]",
+						"Instance" = config.tgs_instance_id
+					))
+					rustg_http_request_blocking(RUSTG_HTTP_METHOD_PUT, "http://127.0.0.1:5000/api/DreamMaker", "", deploy_headers_txt, null)
+					message_admins("Compilation initiated.")
+				else
+					message_admins("TGS is unavailable.")
+					fdel("nextmap.dm")
+					text2file("", "nextmap.dm")
+					text2file("#include \"maps/[map_folder][lowertext(mapswap)].dmm\"", "nextmap.dm")
+					message_admins("#include \"maps/[map_folder][lowertext(mapswap)].dmm\" written to nextmap.dm")
+					shell("dm earth.dme")
+					message_admins("Compilation initiated.")
+				message_admins("Mapswap to \"maps/[map_folder][lowertext(mapswap)].dmm\" successful!")
+				break
+
+		log_admin("[key_name(usr)] swapped maps to [mapswap]!")
+		message_admins("[key_name_admin(usr)] swapped maps to [mapswap]!", key_name_admin(usr))
+		spawn(90 SECONDS)
+			message_admins("Server compilation should probably be done by now. Ready to reboot, use the restart verb to initiate.")
+	else
+		return
 
 /client/proc/cmd_admin_subtle_message(mob/M as mob in mob_list)
 	set category = "Special"
@@ -479,10 +540,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set name = "Change View Range"
 	set desc = "switches between 1x and custom views"
 
-	if (view == world.view)
+	if (view == WORLD_VIEW)
 		view = input("Select view range:", "Change View Range", 7) in list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,24,36,64,128,256)
 	else
-		view = world.view
+		view = WORLD_VIEW
 
 	log_admin("[key_name(usr)] changed their view range to [view].")
 	//message_admins("\blue [key_name_admin(usr)] changed their view range to [view].", key_name_admin(usr))	//why? removed by order of XSI
@@ -495,3 +556,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	usr << text("<span class = 'red'><b>Attack Log for []</b></span>", mob)
 	for (var/t in M.attack_log)
 		usr << t
+
+//A verb so that admins can toggle right click if they need to use debug stuff. - Matt
+/client/proc/toggle_right_click()
+	set name = "Toggle Right Click"
+	set category = "Special"
+
+	if(!show_popup_menus)
+		show_popup_menus = TRUE
+		to_chat(src, "<span class='interface'>Right click enabled.</span>")
+	else
+		show_popup_menus = FALSE
+		to_chat(src, "<span class='interface'>Right click disabled.</span>")

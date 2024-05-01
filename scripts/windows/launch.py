@@ -22,9 +22,7 @@ t1 = time.time()
 
 print("Updating git...")
 
-os.chdir("{}civ13-git".format(mdir))
-os.system("git pull")
-os.system("git reset --hard origin/master")
+os.chdir("{}Live".format(mdir))
 
 print("Rebuilding binaries...")
 
@@ -38,8 +36,8 @@ os.system('python3 "{}{}scripts/windows/copyconfigfiles.py"'.format(mdir,cdir))
 
 print("Copying binaries...")
 
-dmb = os.path.join(mdir,'civ13-git/earth.dmb')
-rsc = os.path.join(mdir,'civ13-git/civ13.rsc')
+dmb = os.path.join(mdir,'Live/earth.dmb')
+rsc = os.path.join(mdir,'Live/civ13.rsc')
 
 shutil.copyfile(dmb, '{}{}earth.dmb'.format(mdir,cdir))
 

@@ -293,6 +293,7 @@
 					MAP_NOMADS_EUROPE = 10,
 					MAP_NOMADS_ASIA = 10,
 //					MAP_NOMADS_UK = 10,
+//					MAP_NOMADS_OCEANIA = 10,
 				)
 			if ("Colony & Pioneers")
 				maps = list(
@@ -337,8 +338,52 @@
 	if (!maps.Find(winner))
 		winner = maps[rand(0,1)]
 	if (!done)
-		processes.python.execute("mapswap.py", list(winner))
-		done = TRUE
+		var/list/map_directories = flist("maps/")
+		var/i = 1
+		for(var/map_dir_len = map_directories.len, map_dir_len !=0, map_dir_len--)
+			var/map_folder = map_directories[i]
+			var/map_in_dir = fexists("maps/[map_directories[i++]]/[lowertext(winner)].dmm")
+			done = TRUE
+			if(map_in_dir)
+				if(world.TgsAvailable())
+					message_admins("TGS is available.")
+					fdel("[config.tgs_dir]/Configuration/CodeModifications/nextmap.dm")
+					text2file("", "[config.tgs_dir]/Configuration/CodeModifications/nextmap.dm")
+					text2file("#include \"maps/[map_folder][lowertext(winner)].dmm\"", "[config.tgs_dir]/Configuration/CodeModifications/nextmap.dm")
+					message_admins("#include \"maps/[map_folder][lowertext(winner)].dmm\" written to [config.tgs_dir]/Configuration/CodeModifications/nextmap.dm")
+					//Login to TGS
+					var/login_headers_txt = json_encode(list(
+						"Accept" = "application/json",
+						"Api" = "Tgstation.Server.Api/10.3.0",
+						"User-Agent" = "SSE/1.0.0.0",
+						"Authorization:" = "Basic [rustg_encode_base64(config.tgs_authdetails)]"
+					))
+					var/list/login_data = json_decode(rustg_http_request_blocking(RUSTG_HTTP_METHOD_POST, "http://127.0.0.1:5000/api", "", login_headers_txt, null))
+					var/list/authtoken_wrapper = json_decode(login_data["body"])
+					var/auth_token = authtoken_wrapper["bearer"]
+
+					//Deploy the instance
+					var/deploy_headers_txt = json_encode(list(
+						"Accept" = "application/json",
+						"Api" = "Tgstation.Server.Api/10.3.0",
+						"User-Agent" = "SSE/1.0.0.0",
+						"Authorization" = "Bearer [auth_token]",
+						"Instance" = config.tgs_instance_id
+					))
+					rustg_http_request_blocking(RUSTG_HTTP_METHOD_PUT, "http://127.0.0.1:5000/api/DreamMaker", "", deploy_headers_txt, null)
+					message_admins("Compilation initiated.")
+				else
+					message_admins("TGS is unavailable.")
+					fdel("nextmap.dm")
+					text2file("", "nextmap.dm")
+					text2file("#include \"maps/[map_folder][lowertext(winner)].dmm\"", "nextmap.dm")
+					message_admins("#include \"maps/[map_folder][lowertext(winner)].dmm\" written to nextmap.dm")
+					shell("dm earth.dme")
+					message_admins("Compilation initiated.")
+				message_admins("Mapswap to \"maps/[map_folder][lowertext(winner)].dmm\" successful!")
+				break
+		spawn(90 SECONDS)
+			world.Reboot()
 
 /process/gamemode
 	var/ready = TRUE
