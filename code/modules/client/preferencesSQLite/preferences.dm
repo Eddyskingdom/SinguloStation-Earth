@@ -84,7 +84,11 @@ var/list/preferences_datums = list()
 		if (IsGuestKey(client_ckey))
 			client_isguest = TRUE
 
-		var/F = file("SQL/charprefs.txt")
+		var/F
+		if (world.TgsAvailable())
+			F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/charprefs.txt")
+		else
+			F = file("SQL/charprefs.txt")
 		var/list/charprefs = splittext(file2text(F), "|||\n")
 		if (preferences_exist(charprefs))
 			load_preferences(charprefs)

@@ -173,12 +173,21 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 				if ("map")
 					ticker.finished = TRUE
 					processes.mapswap.finished_at = world.time
-					var/F = file("SQL/gamedata.txt")
-					if (fexists("SQL/gamedata.txt"))
-						fdel(F)
+					var/F
+					if (world.TgsAvailable())
+						F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/gamedata.txt")
+						if (fexists("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/gamedata.txt"))
+							fdel(F)
+					else
+						F = file("SQL/gamedata.txt")
+						if (fexists("SQL/gamedata.txt"))
+							fdel(F)
 					var/string1 = "map:[processes.mapswap.next_map_title]\n"
 					var/string2 = "players:[clients.len]\n"
-					text2file("[string1][string2]","SQL/gamedata.txt")
+					if (world.TgsAvailable())
+						text2file("[string1][string2]","[config.tgs_dir]/Configuration/GameStaticFiles/SQL/gamedata.txt")
+					else
+						text2file("[string1][string2]","SQL/gamedata.txt")
 				if ("gamemode")
 					processes.gamemode.swap(.)
 				if ("ship selection")

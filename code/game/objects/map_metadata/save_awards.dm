@@ -93,7 +93,11 @@ AWARDS:
 	return FALSE
 
 /obj/map_metadata/proc/save_awards()
-	var/F = file("SQL/awards.txt")
+	var/F
+	if (world.TgsAvailable())
+		F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/awards_br.txt")
+	else
+		F = file("SQL/awards_br.txt")
 	if (!awards.len)
 		return
 	for (var/i = 1, i <= awards.len, i++)

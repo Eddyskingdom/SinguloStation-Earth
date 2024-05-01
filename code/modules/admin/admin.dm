@@ -1030,7 +1030,11 @@ proc/admin_notice(var/message, var/rights)
 
 	load_admins(1)
 
-	var/F = file("SQL/approved.txt")
+	var/F
+	if (world.TgsAvailable())
+		F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/approved.txt")
+	else
+		F = file("SQL/approved.txt")
 	if (fexists(F))
 		var/list/approved_list_temp = file2list(F,"\n")
 		for (var/i in approved_list_temp)
@@ -1040,7 +1044,11 @@ proc/admin_notice(var/message, var/rights)
 	else
 		message_admins("<span class='danger'>Failed to load approved list!</span>", key_name(usr))
 
-	var/F2 = file("SQL/whitelist.txt")
+	var/F2
+	if (world.TgsAvailable())
+		F2 = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/whitelist.txt")
+	else
+		F2 = file("SQL/whitelist.txt")
 	if (fexists(F2))
 		var/list/whitelist_temp = file2list(F2,"\n")
 		for (var/i in whitelist_temp)
@@ -1050,7 +1058,11 @@ proc/admin_notice(var/message, var/rights)
 	else
 		message_admins("<span class='danger'>Failed to load whitelist!</span>", key_name(usr))
 
-	var/F3 = file("SQL/factionlist.txt")
+	var/F3
+	if (world.TgsAvailable())
+		F3 = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/factionlist.txt")
+	else
+		F3 = file("SQL/factionlist.txt")
 	if (fexists(F3))
 		faction_list_blue = list()
 		faction_list_red = list()
@@ -1254,7 +1266,11 @@ proc/admin_notice(var/message, var/rights)
 /proc/load_bans()
 	var/removed = 0
 	var/kept = 0
-	var/checkingfile = "SQL/bans.txt"
+	var/checkingfile
+	if (world.TgsAvailable())
+		checkingfile = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/bans.txt")
+	else
+		checkingfile = file("SQL/bans.txt")
 	if (fexists(checkingfile))
 		var/details = file2text(checkingfile)
 		var/list/details_lines = splittext(details, "|||\n")

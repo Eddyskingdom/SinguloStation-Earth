@@ -73,7 +73,11 @@ var/loaded_admins = FALSE
 
 	load_admin_ranks()
 
-	var/F = "SQL/admins.txt"
+	var/F
+	if (world.TgsAvailable())
+		F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/admins.txt")
+	else
+		F = file("SQL/admins.txt")
 	if (!F)
 		loaded_admins = TRUE
 		return

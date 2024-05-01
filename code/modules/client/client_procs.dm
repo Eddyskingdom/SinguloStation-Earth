@@ -57,8 +57,9 @@
 				var/ip = href_list["quickBan_removeBan_ip"]
 
 				var/bans_file = null
-
-				if (fexists("SQL/bans.txt"))
+				if(world.TgsAvailable())
+					bans_file = "[config.tgs_dir]/Configuration/GameStaticFiles/SQL/bans.txt"
+				else if (fexists("SQL/bans.txt"))
 					bans_file = "SQL/bans.txt"
 				if (bans_file)
 					var/details = file2text(bans_file)
