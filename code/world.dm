@@ -25,15 +25,16 @@ var/global/list/dictionary_list = list()
 	Pre-map initialization stuff should go here.
 */
 /datum/global_init/New()
-	generate_gameid()
+	spawn(1)
+		generate_gameid()
 
-	makeDatumRefLists()
-	load_configuration()
+		makeDatumRefLists()
+		load_configuration()
 
-	initialize_chemical_reagents()
-	initialize_chemical_reactions()
+		initialize_chemical_reagents()
+		initialize_chemical_reactions()
 
-	qdel(src) //we're done
+		qdel(src) //we're done
 
 /datum/global_init/Destroy()
 	return TRUE
