@@ -356,7 +356,7 @@
 						"Accept" = "application/json",
 						"Api" = "Tgstation.Server.Api/10.3.0",
 						"User-Agent" = "SSE/1.0.0.0",
-						"Authorization: Basic [rustg_encode_base64(config.tgs_authdetails)]"
+						"Authorization:" = "Basic [rustg_encode_base64(config.tgs_authdetails)]"
 					))
 					var/list/login_data = json_decode(rustg_http_request_blocking(RUSTG_HTTP_METHOD_POST, "http://127.0.0.1:5000/api", "", login_headers_txt, null))
 					var/list/authtoken_wrapper = json_decode(login_data["body"])
