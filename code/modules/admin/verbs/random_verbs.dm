@@ -45,6 +45,8 @@
 						"Authorization: Basic [rustg_encode_base64(config.tgs_authdetails)]"
 					))
 					var/login_request = rustg_http_request_blocking(RUSTG_HTTP_METHOD_POST, "http://127.0.0.1:5000/api", "", login_headers_txt, null)
+					while(!login_request)
+						sleep()
 					var/list/login_data = json_decode(login_request)
 					var/list/authtoken_wrapper = json_decode(login_data["body"])
 					var/auth_token = authtoken_wrapper["bearer"]
