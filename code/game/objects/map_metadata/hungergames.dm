@@ -370,7 +370,11 @@
 			return
 
 /obj/map_metadata/hunger_games/save_awards()
-	var/F = file("SQL/awards_br.txt")
+	var/F
+	if (world.TgsAvailable())
+		F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/awards_br.txt")
+	else
+		F = file("SQL/awards_br.txt")
 	if (!awards.len || awards.len <= 12)
 		return
 	for (var/i = 1, i <= awards.len, i++)

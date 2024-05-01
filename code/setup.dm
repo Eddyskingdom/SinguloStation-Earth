@@ -26,7 +26,11 @@
 
 	admin_notice("<span class='danger'>Initializing approved list...</span>", R_DEBUG)
 	sleep(-1)
-	var/F = file("SQL/approved.txt")
+	var/F
+	if(world.TgsAvailable())
+		F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/approved.txt")
+	else
+		F = file("SQL/approved.txt")
 	if (fexists(F))
 		var/list/approved_list_temp = file2list(F,"\n")
 		for (var/i in approved_list_temp)

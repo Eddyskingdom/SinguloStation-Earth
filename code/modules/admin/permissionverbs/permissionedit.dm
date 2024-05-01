@@ -65,7 +65,11 @@
 	if (!istext(adm_ckey) || !istext(new_rank))
 		return
 
-	var/F = "SQL/admins.txt"
+	var/F
+	if (world.TgsAvailable())
+		F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/admins.txt")
+	else
+		F = file("SQL/admins.txt")
 	var/list/admincheck = splittext(file2text(F),"|||\n")
 	if (isemptylist(admincheck))
 		return

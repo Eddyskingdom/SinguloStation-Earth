@@ -46,7 +46,11 @@ K
 	return ""
 
 /obj/map_metadata/gladiators/proc/load_gladiators()
-	var/F = file("SQL/gladiator_stats.txt")
+	var/F
+	if (world.TgsAvailable())
+		F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/gladiator_stats.txt")
+	else
+		F = file("SQL/gladiator_stats.txt")
 	if (fexists(F))
 		var/list/temp_stats1 = file2list(F,"\n")
 		gladiator_stats = list()
@@ -62,11 +66,18 @@ K
 		return FALSE
 
 /obj/map_metadata/gladiators/proc/save_gladiators()
-	var/F = file("SQL/gladiator_stats.txt")
+	var/F
+	if (world.TgsAvailable())
+		F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/gladiator_stats.txt")
+	else
+		F = file("SQL/gladiator_stats.txt")
 	if (!gladiator_stats.len)
 		return
 	if (fexists(F))
-		fcopy("SQL/gladiator_stats.txt","SQL/gladiator_stats_backup.txt")
+		if (world.TgsAvailable())
+			fcopy("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/gladiator_stats.txt","[config.tgs_dir]/Configuration/GameStaticFiles/SQL/gladiator_stats_backup.txt")
+		else
+			fcopy("SQL/gladiator_stats.txt","SQL/gladiator_stats_backup.txt")
 		fdel(F)
 	for (var/i = 1, i <= gladiator_stats.len, i++)
 		var/txtexport = list2text(gladiator_stats[i])

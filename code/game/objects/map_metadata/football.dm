@@ -98,7 +98,11 @@
 		for (var/obj/effect/step_trigger/goal/blue/GB in world)
 			GB.assign()	
 /obj/map_metadata/football/proc/save_teams()
-	var/F = file("SQL/sports_teams.txt")
+	var/F
+	if (world.TgsAvailable())
+		F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/sports_teams.txt")
+	else
+		F = file("SQL/sports_teams.txt")
 	if (fexists(F))
 		fdel(F)
 	for (var/i in teams)
@@ -106,7 +110,11 @@
 		text2file(txtexport,F)
 	return
 /obj/map_metadata/football/proc/load_teams()
-	var/F = file("SQL/sports_teams.txt")
+	var/F
+	if (world.TgsAvailable())
+		F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/sports_teams.txt")
+	else
+		F = file("SQL/sports_teams.txt")
 	var/list/teamlist = list()
 	if (fexists(F))
 		teams = list()
@@ -425,7 +433,11 @@
 		for (var/obj/effect/step_trigger/goal/blue/GB in world)
 			GB.assign()	
 /obj/map_metadata/football_campaign/proc/save_teams()
-	var/F = file("SQL/sports_teams.txt")
+	var/F
+	if (world.TgsAvailable())
+		F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/sports_teams.txt")
+	else
+		F = file("SQL/sports_teams.txt")
 	if (fexists(F))
 		fdel(F)
 	for (var/i in teams)
@@ -433,7 +445,11 @@
 		text2file(txtexport,F)
 	return
 /obj/map_metadata/football_campaign/proc/load_teams()
-	var/F = file("SQL/sports_teams.txt")
+	var/F
+	if (world.TgsAvailable())
+		F = file("[config.tgs_dir]/Configuration/GameStaticFiles/SQL/sports_teams.txt")
+	else
+		F = file("SQL/sports_teams.txt")
 	var/list/teamlist = list()
 	if (fexists(F))
 		teams = list()

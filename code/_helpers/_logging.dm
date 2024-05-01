@@ -73,7 +73,9 @@
 /proc/discord_admin_unban(banner,banned)
 	var/bans_file = null
 
-	if (fexists("SQL/bans.txt"))
+	if (world.TgsAvailable())
+		bans_file = "[config.tgs_dir]/Configuration/GameStaticFiles/SQL/bans.txt"
+	else if (fexists("SQL/bans.txt"))
 		bans_file = "SQL/bans.txt"
 
 	if (bans_file)
