@@ -69,6 +69,7 @@ var/world_is_open = TRUE
 #define RECOMMENDED_VERSION 514
 /world/New()
 	TgsNew()
+
 #ifdef USE_BYOND_TRACY
 	#warn USE_BYOND_TRACY is enabled
 	init_byond_tracy()
@@ -81,6 +82,7 @@ var/world_is_open = TRUE
 
 	if (map && istype(map,/obj/map_metadata/nomads_persistence_beta))
 		loop_checks = FALSE
+
 	config.post_load()
 
 	if (config && config.server_name != null && config.server_suffix && world.port > 0)
@@ -228,7 +230,6 @@ var/world_topic_spam_protect_time = world.timeofday
 
 /world/Topic(T, addr, master, key)
 	TGS_TOPIC
-	
 	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key][log_end]"
 
 	// normal ss13 stuff
