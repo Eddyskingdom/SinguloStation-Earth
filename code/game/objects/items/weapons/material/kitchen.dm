@@ -228,7 +228,7 @@
 
 /obj/item/weapon/material/kitchen/utensil/knife/dagger
 	name = "dagger"
-	desc = "A dagger with two sharp edges alongside a very sharp point.."
+	desc = "A dagger with two sharp edges alongside a very sharp point."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "dagger"
 	item_state = "knife"
