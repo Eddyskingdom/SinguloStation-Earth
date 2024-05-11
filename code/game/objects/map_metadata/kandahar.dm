@@ -25,7 +25,7 @@
 	faction2 = RUSSIAN
 	valid_weather_types = list(WEATHER_NONE, WEATHER_WET, WEATHER_EXTREME)
 	songs = list(
-		"Swallowing Dust:1" = 'sound/music/swallowingdust.ogg')
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	gamemode = "Afghan"
 	artillery_count = 3
 	var/sov_points = 0

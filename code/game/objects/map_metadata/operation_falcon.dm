@@ -24,7 +24,7 @@
 	faction2 = RUSSIAN
 	valid_weather_types = list(WEATHER_NONE, WEATHER_WET, WEATHER_EXTREME)
 	songs = list(
-		"Doe Maar - The Bomb (De Bom):1" = 'sound/music/de_bom.ogg',)
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	gamemode = "Area Control"
 	ambience = list('sound/ambience/battle1.ogg')
 	var/rus_points = 0
@@ -289,7 +289,7 @@
 			var/message = "The <b>Russians</b> have reached [rus_points] points and claimed victory in Operation Falcon!"
 			world << "<font size = 4><span class = 'notice'>[message]</span></font>"
 
-			var/anthem = sound('sound/music/russian_anthem.ogg', repeat = FALSE, wait = FALSE, volume = 100, channel = 775)
+			var/anthem = sound('sound/music/The-Pyre.ogg', repeat = FALSE, wait = FALSE, volume = 100, channel = 775)
 			for (var/mob/M in player_list)
 				if (M.client)
 					M.client << anthem
@@ -304,7 +304,7 @@
 			var/message = "The <b>Dutch</b> have reached [dutch_points] points and claimed victory in Operation Falcon!"
 			world << "<font size = 4><span class = 'notice'>[message]</span></font>"
 			
-			var/anthem = sound('sound/music/dutch_anthem.ogg', repeat = FALSE, wait = FALSE, volume = 100, channel = 775)
+			var/anthem = sound('sound/music/The-Pyre.ogg', repeat = FALSE, wait = FALSE, volume = 100, channel = 775)
 			for (var/mob/M in player_list)
 				if (M.client)
 					M.client << anthem

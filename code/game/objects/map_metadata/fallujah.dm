@@ -24,7 +24,7 @@
 	faction2 = AMERICAN
 	valid_weather_types = list(WEATHER_NONE, WEATHER_EXTREME)
 	songs = list(
-		"The Handsome Family - Far From Any Road:1" = 'sound/music/farfromanyroad.ogg',)
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	artillery_count = 3
 	valid_artillery = list("Explosive")
 

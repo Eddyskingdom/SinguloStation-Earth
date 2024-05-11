@@ -8,7 +8,7 @@
 	has_hunger = TRUE
 	no_winner = "The fighting is still going."
 	songs = list(
-		"Woke Up This Morning:1" = 'sound/music/woke_up_this_morning.ogg',)
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	faction_organization = list(
 		CIVILIAN)
 

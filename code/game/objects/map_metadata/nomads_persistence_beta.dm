@@ -27,7 +27,7 @@
 	nomads = FALSE
 	availablefactions_run = FALSE
 	songs = list(
-		"Emma:1" = 'sound/music/emma.ogg',)
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	default_research = 210
 	gamemode = "Nations RP (Persistence)"
 	ordinal_age = 8

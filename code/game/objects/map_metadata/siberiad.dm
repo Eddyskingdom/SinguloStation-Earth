@@ -24,7 +24,7 @@
 	faction2 = RUSSIAN
 	ordinal_age = 7
 	songs = list(
-		"Audio - Emissions:1" = 'sound/music/emissions.ogg')
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	gamemode = "Extraction"
 	var/activation_code = 0
 
