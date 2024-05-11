@@ -25,8 +25,7 @@
 	faction2 = GERMAN
 	grace_wall_timer = 3000
 	songs = list(
-		"Argonnerwaldlied:1" = 'sound/music/argonnerwaldlied.ogg')
-
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 /obj/map_metadata/ypres/New()
 	..()
 	spawn(1)

@@ -26,7 +26,7 @@
 	faction2 = FRENCH
 	grace_wall_timer = 3000
 	songs = list(
-		"Argonnerwaldlied:1" = 'sound/music/argonnerwaldlied.ogg')
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 
 	valid_weather_types = list(WEATHER_WET, WEATHER_EXTREME)
 

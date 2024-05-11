@@ -24,7 +24,7 @@
 	faction2 = CIVILIAN
 	valid_weather_types = list(WEATHER_NONE, WEATHER_WET, WEATHER_EXTREME)
 	songs = list(
-		"The Great Escape:1" = 'sound/music/the_great_escape.ogg')
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	gamemode = "Prison Simulation"
 	var/list/points = list(
 		list("Guards",0,0),

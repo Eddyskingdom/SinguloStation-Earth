@@ -25,7 +25,7 @@
 	faction2 = NORWEGIAN
 	valid_weather_types = list(WEATHER_NONE, WEATHER_WET)
 	songs = list(
-		"Danheim - Ivar's Revenge:1" = 'sound/music/ivars_revenge.ogg',)
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	gamemode = "Siege"
 
 /obj/map_metadata/clash/job_enabled_specialcheck(var/datum/job/J)

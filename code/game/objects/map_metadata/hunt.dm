@@ -24,7 +24,7 @@
 	faction1 = INDIANS
 	faction2 = PIRATES
 	songs = list(
-		"Blade and Dagger:1" = 'sound/music/blade_and_dagger.ogg',)
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	gamemode = "Survival RP"
 	is_RP = TRUE
 	grace_wall_timer = 15000

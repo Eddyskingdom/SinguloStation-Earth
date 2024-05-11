@@ -25,7 +25,7 @@
 	faction1 = CIVILIAN
 	faction2 = INDIANS
 	songs = list(
-		"Nassau Shores:1" = 'sound/music/nassau_shores.ogg',)
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	gamemode = "Pioneer Building RP"
 	grace_wall_timer = 15000
 

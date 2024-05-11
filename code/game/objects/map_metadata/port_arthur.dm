@@ -22,7 +22,7 @@
 	faction2 = JAPANESE
 	ordinal_age = 5
 	songs = list(
-		"Argonnerwaldlied:1" = 'sound/music/argonnerwaldlied.ogg')
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	gamemode = "Siege"
 	var/no_loop_arth = FALSE
 	

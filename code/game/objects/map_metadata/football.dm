@@ -19,7 +19,7 @@
 	ambience = list('sound/ambience/football.ogg')
 	faction1 = CIVILIAN
 	songs = list(
-		"Forever Blowing Bubbles:1" = 'sound/music/forever_blowing_bubbles.ogg',)
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	is_singlefaction = TRUE
 	var/team1 = "Unga Utd."
 	var/team2 = "Chad Town F.C."
@@ -355,7 +355,7 @@
 	ambience = list('sound/ambience/football.ogg')
 	faction1 = CIVILIAN
 	songs = list(
-		"Forever Blowing Bubbles:1" = 'sound/music/forever_blowing_bubbles.ogg',)
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	is_singlefaction = TRUE
 	var/team1 = "Redmenia Utd."
 	var/team2 = "Blugoslavia F.C."

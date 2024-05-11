@@ -22,7 +22,7 @@
 	faction2 = AMERICAN
 	valid_weather_types = list(WEATHER_WET, WEATHER_NONE, WEATHER_EXTREME)
 	songs = list(
-		"Fortunate Son:1" = 'sound/music/fortunate_son.ogg',)
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	artillery_count = 5
 	grace_wall_timer = 4800
 

@@ -24,7 +24,7 @@
 	faction2 = ARAB
 	ambience = list('sound/ambience/desert.ogg')
 	songs = list(
-		"Crusaders:1" = 'sound/music/crusaders.ogg')
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	gamemode = "Siege"
 	grace_wall_timer = 3600
 

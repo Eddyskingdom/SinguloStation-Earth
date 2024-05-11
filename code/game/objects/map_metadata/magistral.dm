@@ -25,7 +25,7 @@
 	faction2 = ARAB
 	valid_weather_types = list(WEATHER_NONE, WEATHER_WET)
 	songs = list(
-		"Kaskad - Afgan:1" = 'sound/music/afgan.ogg',)
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	gamemode = "Siege"
 	artillery_count = 3
 	grace_wall_timer = 3000

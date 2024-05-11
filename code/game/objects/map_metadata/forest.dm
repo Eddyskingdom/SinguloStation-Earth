@@ -17,7 +17,7 @@
 		)
 	age = "1943"
 	songs = list(
-		"Red Army Choir - Katyusha:1" = 'sound/music/katyusha.ogg',)
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	ordinal_age = 6
 	faction_distribution_coeffs = list(GERMAN = 0.5, RUSSIAN = 0.5, CIVILIAN = 0.2)
 	battle_name = "Forest"

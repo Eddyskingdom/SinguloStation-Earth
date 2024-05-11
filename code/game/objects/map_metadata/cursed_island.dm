@@ -24,7 +24,7 @@
 	is_singlefaction = TRUE
 	availablefactions_run = TRUE
 	songs = list(
-		"Words Trough the Sky:1" = 'sound/music/words_through_the_sky.ogg',)
+		"The Pyre:1" = 'sound/music/The-Pyre.ogg',)
 	gamemode = "Player vs NPCs"
 	grace_wall_timer = 1200
 
