@@ -12,7 +12,7 @@ set -f # disable pathname expansion
 set -C # noclobber
 
 readonly BASE_BRANCH_NAME="upstream-merge-"
-readonly BASE_PULL_URL="https://api.github.com/repos/BeeStation/BeeStation-Hornet/pulls"
+readonly BASE_PULL_URL="https://api.github.com/repos/Civ13/Civ13/pulls"
 
 # Ensure the current directory is a git directory
 if [ ! -d .git ]; then
@@ -40,8 +40,8 @@ containsElement () {
 }
 
 # Make sure we have our upstream remote
-if ! git remote | grep beestation > /dev/null; then
-   git remote add beestation https://github.com/BeeStation/BeeStation-Hornet.git
+if ! git remote | grep civ13 > /dev/null; then
+   git remote add civ13 https://github.com/Civ13/Civ13.git
 fi
 
 #curl -v \
